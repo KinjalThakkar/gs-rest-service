@@ -1,0 +1,75 @@
+
+
+-----------------------------------------------------------------------------------------------------------------
+Unit Test 1:
+-----------------------------------------------------------------------------------------------------------------
+Service URL: localhost:8080/createToDo
+Request type:POST
+Body:{"id":1,"title":"Any title","description":"Any desc","dueDate":70820171705}
+Test cases:
+	1.)  Body: {"id":1,"title":"Any title","description":"Any desc","dueDate":70820171705}
+		Test: tests["Status code is 201"] = responseCode.code === 201;
+			  tests["Body matches string"] = responseBody.has("title");
+
+		Expected output: PASS (status: 201 created)
+	
+	2.) Body: {"title":"Any title","description":"Any desc","dueDate":70820171705}
+		Test: tests["Body matches string"] = responseBody.has("id");
+		Expected output: FAIL (ToDo ID is absent., status : 400 BAD REQUEST)
+		
+		
+	3.)Body:{"id":2,"description":"Any desc","dueDate":70820171705}
+	   Test: tests["Status code is 201"] = responseCode.code === 201;
+	   Expected output:PASS (status: 201 created)
+		
+	4.)Body:{"id":2,"description":"Any desc","dueDate":70820171705}
+	   Test: tests["Status code is 201"] = responseCode.code === 201;
+	   Expected output:FAIL (ToDo ID already exists.)
+	
+-----------------------------------------------------------------------------------------------------------------
+Unit Test 2:
+-----------------------------------------------------------------------------------------------------------------
+
+Service URL: localhost:8080/getToDoList
+Request type:GET
+
+Test cases:
+	1.) Test: tests["Status code is 200"] = responseCode.code === 200;
+		Expected output: PASS (status: 200 OK)
+	
+-----------------------------------------------------------------------------------------------------------------
+Unit Test 3:
+-----------------------------------------------------------------------------------------------------------------
+
+Service URL: localhost:8080/getToDo/{id}
+Request type:GET
+
+Test cases:
+	1.) Service url:localhost:8080/getToDo/3
+		Test: tests["Status code is 200"] = responseCode.code === 200;
+		Expected output: FAIL (ToDo ID not found., status: 404 NOT FOUND)
+		
+	2.) Service url:localhost:8080/getToDo/2
+		Test: tests["Status code is 200"] = responseCode.code === 200;
+		Expected output: PASS (status: 200 OK)
+		
+-----------------------------------------------------------------------------------------------------------------
+Unit Test 4:
+-----------------------------------------------------------------------------------------------------------------
+	
+Service URL: localhost:8080/updateToDo/{id}
+Request type:PATCH
+Body:{"id":1,"title":"Any title","description":"Any desc","dueDate":70820171705}
+Test cases:
+	1.) Service URL: localhost:8080/updateToDo/2
+		Body: {"description":"Any desc updated"}
+		Test: tests["Status code is 200"] = responseCode.code === 200;
+		Expected output: PASS (status: 200 OK)
+	
+	2.) Service URL: localhost:8080/updateToDo/1
+		Body: {"description":"Any desc updated"}
+		Test: tests["Status code is 404"] = responseCode.code === 404
+		Expected output: PASS (ToDo ID not found., status: 404 NOT FOUND)
+		
+		
+	
